@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="ABC" value="118.5">
+  <button type="button" id="btn">结果</button>
+  <textarea name="" id="BCA" cols="30" rows="10"></textarea>
+  <script>
+	
+	// function AI(lastTotal, length){
+	// 	var maxReturnLength = 4;
+	// 	if(length){
+	// 		maxReturnLength = length;
+	// 	}
+	// 	var a = parseInt(lastTotal / 100) * 100;
+	// 	var t = lastTotal.toString().split('.');
+	// 	var x = t[1] ? Math.pow(10, t[1].length) : 1;
+	// 	var b = parseInt((lastTotal - a) * x / 10) * 10;
+	// 	var c = (lastTotal * x) % 10;
+	// 	var arr = [];
+  //   var l = c ? ((b + 10) / x) : b;
+  //   if(c){
+  //     if(c < 5){
+  //       arr.push((a + (b + 5) / x));
+  //     }
+  //     arr.push(a + l);
+  //   }
+	// 	var money = [5, 10, 20, 50, 100];
+	// 	var p = -1;
+	// 	for(var i = 0; i < money.length; i ++){
+	// 		if(l < money[i]){
+	// 			p = i;
+	// 			break;
+	// 		}
+	// 	}
+	// 	if(p >= 0 && (a != 0 || b != 0)){
+	// 		for(var i = 0; i < (c ? (c < 5 ? 2 : 3) : 4); i++){
+	// 			if(money[i + p]){
+	// 				arr.push(a + money[i + p]);
+	// 			}
+	// 		}
+	// 	}
+  //   return arr;
+	// }
+	function AI(num, length){
+		this.num = num;
+		this.result = [];
+		this.maxReturnLength = 4;
+		if(length){
+			this.maxReturnLength = length;
+		}
+		this.init();
+	}
+	AI.prototype.init = function(){
+		var t = this.num.toString().split('.');
+		var x = t[1] ? t[1].length : 0;
+		this.calcAI(x);
+		this.supplement();
+	};
+	AI.prototype.calcAI = function(x){
+		if(this.result.length < this.maxReturnLength){
+			var a = parseInt(this.num / 100) * 100;
+			var y = Math.pow(10, x);
+			var b = parseInt((this.num - a) * y / 10) * 10;
+			console.log(this.num);
+			var c = Math.ceil(this.num * y * Math.pow(10, 0) / Math.pow(10, 0)) % 10;
+			console.log(c);
+			if(c){
+				if(c < 5){
+					this.result.push((a + (b + 5) / y));
+				}
+				this.result.push(a + (c ? ((b + 10) / y) : b));
+			}
+			if(x){
+				this.calcAI(x - 1);
+			}
+		}
+	};
+	AI.prototype.supplement = function(){
+		if(this.result.length < this.maxReturnLength){
+			var money = [5, 10, 20, 50, 100];
+			var last = this.result[this.result.length - 1] || this.num;
+			var a = parseInt(last / 100) * 100;
+			var l = last % 100;
+			var p = -1;
+			for(var i = 0; i < money.length; i++){
+				if(l < money[i]){
+					p = i;
+					break;
+				}
+			}
+			if(p > 0){
+				var length = this.result.length;
+				for(i = 0; i < this.maxReturnLength - length; i++){
+					if(money[i + p]){
+						this.result.push(a + money[i + p]);
+					}
+				}
+			}
+		}
+	};
+	AI.prototype.output = function(){
+		return this.result.join(',');
+	};
+  var btn = document.getElementById('btn');
+  var abc = document.getElementById('ABC');
+  var bca = document.getElementById('BCA');
+  btn.onclick = function(){
+    bca.value = (new AI(abc.value)).output();
+  }
+  </script>
+</body>
+</html>
