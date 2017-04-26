@@ -9,42 +9,6 @@
   <button type="button" id="btn">结果</button>
   <textarea name="" id="BCA" cols="30" rows="10"></textarea>
   <script>
-	
-	// function AI(lastTotal, length){
-	// 	var maxReturnLength = 4;
-	// 	if(length){
-	// 		maxReturnLength = length;
-	// 	}
-	// 	var a = parseInt(lastTotal / 100) * 100;
-	// 	var t = lastTotal.toString().split('.');
-	// 	var x = t[1] ? Math.pow(10, t[1].length) : 1;
-	// 	var b = parseInt((lastTotal - a) * x / 10) * 10;
-	// 	var c = (lastTotal * x) % 10;
-	// 	var arr = [];
-  //   var l = c ? ((b + 10) / x) : b;
-  //   if(c){
-  //     if(c < 5){
-  //       arr.push((a + (b + 5) / x));
-  //     }
-  //     arr.push(a + l);
-  //   }
-	// 	var money = [5, 10, 20, 50, 100];
-	// 	var p = -1;
-	// 	for(var i = 0; i < money.length; i ++){
-	// 		if(l < money[i]){
-	// 			p = i;
-	// 			break;
-	// 		}
-	// 	}
-	// 	if(p >= 0 && (a != 0 || b != 0)){
-	// 		for(var i = 0; i < (c ? (c < 5 ? 2 : 3) : 4); i++){
-	// 			if(money[i + p]){
-	// 				arr.push(a + money[i + p]);
-	// 			}
-	// 		}
-	// 	}
-  //   return arr;
-	// }
 	function AI(num, length){
 		this.num = num;
 		this.result = [];
@@ -65,9 +29,7 @@
 			var a = parseInt(this.num / 100) * 100;
 			var y = Math.pow(10, x);
 			var b = parseInt((this.num - a) * y / 10) * 10;
-			console.log(this.num);
 			var c = Math.ceil(this.num * y * Math.pow(10, 0) / Math.pow(10, 0)) % 10;
-			console.log(c);
 			if(c){
 				if(c < 5){
 					this.result.push((a + (b + 5) / y));
